@@ -26,5 +26,10 @@ describe Board do
     expect(subject.height).to eq 10
   end
 
+  it 'accepts user x and y coordinates' do 
+    subject.coordinates 2, 3 
+    expect(subject.x).to eq 2
+  end
+
 
 end
