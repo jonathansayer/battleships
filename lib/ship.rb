@@ -3,10 +3,12 @@ class Ship
   attr_accessor :x
   attr_accessor :y
   attr_accessor :orientation
+  attr_accessor :size
 
-  def initialize
+  def initialize size
+    fail 'Wrong size ship' if size >= 5 || size <= 1
     @on_board = false
-    @size = 2
+    @size = size
   end
 
   def placed?
