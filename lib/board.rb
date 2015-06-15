@@ -14,8 +14,9 @@ class Board
   end
 
   def place_ship ship, x=1, y=1
+
     ship.place
-    "(#{x},#{y})"
+    "(#{x},#{y}) to (#{x},#{y+1})"
   end
 
 end

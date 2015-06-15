@@ -13,9 +13,9 @@ describe Board do
   end
 
   it 'returns the location of the ship' do 
-    ship = double :ship
+    ship = double :ship, size: 2
     allow(ship).to receive(:place) { true }
-    expect(subject.place_ship ship, 2, 1).to eq "(2,1)"
+    expect(subject.place_ship ship, 1, 1).to eq "(1,1) to (1,2)"
   end 
 
   it 'has a grid width of 10' do
@@ -25,5 +25,6 @@ describe Board do
   it 'has a grid height of 10' do
     expect(subject.height).to eq 10
   end
+
 
 end
