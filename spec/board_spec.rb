@@ -18,4 +18,12 @@ describe Board do
     expect(subject.place_ship ship, 2, 1).to eq "(2,1)"
   end 
 
+  it 'has a grid width of 10' do
+  	expect(subject.width).to eq 10
+  end
+
+  it 'has a grid height of 10' do
+    expect(subject.height).to eq 10
+  end
+
 end
