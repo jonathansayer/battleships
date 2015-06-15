@@ -13,10 +13,13 @@ class Board
     @height = DEFAULT_HEIGHT
   end
 
-  def place_ship ship, x=1, y=1
-
+  def place_ship ship, x, y, orientation
     ship.place
-    "(#{x},#{y}) to (#{x},#{y+1})"
+    if (orientation == "horizontal")
+      "(#{ x },#{ y }) to (#{ x + 1 },#{ y })" 
+    elsif (orientation == "vertical")
+      "(#{ x },#{ y }) to (#{ x },#{ y + 1 })"
+    end
   end
 
 end
