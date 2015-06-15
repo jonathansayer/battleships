@@ -1,3 +1,5 @@
+require_relative 'ship'
+
 class Board
 
   DEFAULT_WIDTH = 10
@@ -11,7 +13,8 @@ class Board
     @height = DEFAULT_HEIGHT
   end
 
-  def place_ship ship
+  def place_ship ship, x, y, orientation
+  	ship.coordinates x, y, orientation
     ship.place
   end
 

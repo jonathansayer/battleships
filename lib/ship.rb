@@ -2,6 +2,7 @@ class Ship
 
   attr_accessor :x
   attr_accessor :y
+  attr_accessor :orientation
 
   def initialize
     @on_board = false
@@ -12,22 +13,22 @@ class Ship
     @on_board
   end
 
-  def place
-    @on_board = true
-    if (@orientation == "horizontal")
-      "(#{ x },#{ y }) to (#{ x + 1 },#{ y })" 
-    elsif (@orientation == "vertical")
-      "(#{ x },#{ y }) to (#{ x },#{ y + 1 })"
-    end
+  def coordinates x, y, orientation
+    @x = x
+    @y = y
+    @orientation = orientation.to_s
   end
 
-  def position
-    puts"Enter x co-ordinate: "
-    @x=gets.chomp.to_i
-    puts"Enter y co-ordinate: "
-    @y=gets.chomp.to_i
-    puts"Orientation (vertical/horizontal): "
-    @orientation=gets.chomp 
+  def display
+    if (@orientation == "horizontal")
+      "(#{ @x },#{ @y }) to (#{ @x + (@size - 1) },#{ @y })" 
+    elsif (@orientation == "vertical")
+      "(#{ @x },#{ @y }) to (#{ @x },#{ @y + (@size - 1 )})"
+    end
+  end
+  
+  def place 
+    @on_board = true
   end
 
 end
