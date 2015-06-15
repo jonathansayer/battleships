@@ -7,7 +7,6 @@ describe Board do
   it 'To return the location of the ship' do 
     ship = double :ship
     expect(subject.place_ship ship).to eq "(1,1)"
-    end 
-  
+  end 
 
 end
