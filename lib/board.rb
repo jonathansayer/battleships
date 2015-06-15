@@ -1,8 +1,11 @@
 class Board
 
-  def place_ship ship
+  attr_accessor :x
+  attr_accessor :y
+
+  def place_ship ship, x=1, y=1
     ship.place
-    "(1,1)"
+    "(#{x},#{y})"
   end
 
 end
