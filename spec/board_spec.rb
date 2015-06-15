@@ -25,9 +25,13 @@ describe Board do
   it 'has a grid height of 10' do
     expect(subject.height).to eq 10
   end
-  
-  it 'checks that coordinates are free' do 
-    
+   
+  it 'only holds 5 ships' do
+    ship = double :ship
+    allow(ship).to receive(:coordinates) {true} 
+    allow(ship).to receive(:place) {true} 
+    5.times {subject.place_ship ship, 1, 1, 'vertical'}
+    expect{subject.place_ship ship, 1, 1, 'vertical'}.to raise_error 'No more space'
   end
 
 end
