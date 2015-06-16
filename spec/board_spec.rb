@@ -71,7 +71,18 @@ describe Board do
     expect{ subject.receive_hit 1, 1 }.to raise_error 'Already guessed'
   end
 
-
+  it 'doesnt allow any ships to be placed outside of the board' do 
+    ship = double :ship, size: 3
+    allow(ship).to receive(:x) {9}
+    allow(ship).to receive(:y) {3}
+    allow(ship).to receive(:x2) {11}
+    allow(ship).to receive(:y2) {3}
+    allow(ship).to receive(:x=) {9} 
+    allow(ship).to receive(:y=) {3}
+    allow(ship).to receive(:x2=) {11} 
+    allow(ship).to receive(:y2=) {3}
+    expect{ subject.place_ship ship, 9, 3, 'horizontal' }.to raise_error "Cannot place here"
+  end
 
 
 

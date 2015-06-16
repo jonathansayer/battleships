@@ -4,18 +4,14 @@ class Ship
   attr_accessor :y
   attr_accessor :orientation
   attr_accessor :size
+  attr_accessor :x2
+  attr_accessor :y2
 
   def initialize size
     fail 'Wrong size ship' if size >= 5 || size <= 1
     @size = size
     @hit_counter=0
     @sunk=false
-  end
-
-  def coordinates x, y, orientation
-    @x = x
-    @y = y
-    @orientation = orientation
   end
 
   def display

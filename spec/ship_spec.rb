@@ -2,12 +2,6 @@ require 'ship'
 
 describe Ship do
 
-  it 'outputs the chosen coordinates' do
-    subject=Ship.new 2
-    subject.coordinates 1, 1, 'horizontal'
-    expect(subject.display).to eq '(1,1) to (2,1)' 
-  end
-
   it 'A new ship should have a given size' do 
     ship=Ship.new 4
     expect(ship.size).to eq 4

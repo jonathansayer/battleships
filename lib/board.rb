@@ -22,10 +22,29 @@ class Board
 
   def place_ship ship, x, y, orientation
   	fail 'No more space' if @ships.count >= 5
-    ship.x= x
+    ship.x = x
     ship.y = y
+    ship.x2 = x
+    ship.y2 = y
+    ship.y2 = ship.y + ((ship.size)-1) if orientation == 'vertical'
+    ship.x2 = ship.x + ((ship.size)-1) if orientation == 'horizontal'
+    fail 'Cannot place here' if outside_board? ship
     limit_by_size ship
     ships << ship
+  end
+
+  def outside_board? ship
+    if ship.x > @width
+      true
+    elsif ship.x2 > @width 
+      true 
+    elsif ship.y > @height 
+      true
+    elsif ship.y2 > @height
+      true
+    else
+      false
+    end
   end
 
   def limit_by_size ship 
