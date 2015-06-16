@@ -40,19 +40,33 @@ class Board
       hit = true if ship.x == x and ship.y == y
     end
     if hit
-      puts 'hit!'
       store_hit x, y
+      return 'hit!'
     else
-      puts 'miss!'
       store_miss x, y
+      return 'miss!'
     end
   end
 
   def store_hit x, y
-    hits << [x, y]
+    fail "Already guessed" if hits.include?([x, y])
+    hits << [x, y] 
   end
 
   def store_miss x, y
+    fail "Already guessed" if misses.include?([x, y])
     misses << [x, y]
+  end
+
+  def win?
+    total_length = 0
+    ships.each do |ship|
+      total_length+=ship.size
+    end
+    if total_length == @hits.length
+      true
+    else
+      false
+    end
   end
 end

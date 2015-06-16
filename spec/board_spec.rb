@@ -42,12 +42,38 @@ describe Board do
     allow(ship).to receive(:x) {1}
     allow(ship).to receive(:y) {1}
     subject.place_ship ship, 1, 1, 'horizontal'
-    expect(subject.receive_hit 1, 1).to eq "hit!"
+    expect(subject.receive_hit 1, 1).to eq 'hit!' 
   end
 
   it 'Can return miss' do 
     expect(subject.receive_hit 1, 1).to eq 'miss!'
   end
+
+  it 'return Winner when all ships have been sunk' do 
+    ship = double :ship, size: 1
+    allow(ship).to receive(:x=) {1} 
+    allow(ship).to receive(:y=) {1}
+    allow(ship).to receive(:x) {1}
+    allow(ship).to receive(:y) {1}
+    subject.place_ship ship, 1, 1, 'horizontal'
+    subject.receive_hit 1, 1
+    expect(subject.win?).to eq true
+  end
+
+  it 'doesnt allow two hits (same for misses)' do
+    ship = double :ship
+    allow(ship).to receive(:x=) {1} 
+    allow(ship).to receive(:y=) {1}
+    allow(ship).to receive(:x) {1}
+    allow(ship).to receive(:y) {1}
+    subject.place_ship ship, 1, 1, 'horizontal'
+    subject.receive_hit 1, 1
+    expect{ subject.receive_hit 1, 1 }.to raise_error 'Already guessed'
+  end
+
+
+
+
 
 
 

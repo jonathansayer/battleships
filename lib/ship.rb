@@ -8,6 +8,8 @@ class Ship
   def initialize size
     fail 'Wrong size ship' if size >= 5 || size <= 1
     @size = size
+    @hit_counter=0
+    @sunk=false
   end
 
   def coordinates x, y, orientation
@@ -24,13 +26,11 @@ class Ship
     end
   end
 
-
-  
-  
-
- # def hit hit_x, hit_y
-  #  hit_array = [hit_x,hit_y] 
-  #end
-
-
+  def hit 
+    @hit_counter+=1
+    if @hit_counter == size
+      return @sunk=true
+    end
+    return @hit_counter
+  end
 end

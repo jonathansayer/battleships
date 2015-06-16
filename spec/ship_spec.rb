@@ -23,9 +23,12 @@ describe Ship do
 
   it 'Knows its been hit' do 
     subject=Ship.new 3
-    subject.coordinates 2, 3
-    expect(subject.hit 1, 2).to eq [1,2]
+    expect(subject.hit).to eq 1
   end
 
-
+  it 'Knows its been sunk' do
+    subject=Ship.new 2
+    subject.hit
+    expect(subject.hit).to eq true
+  end
 end
