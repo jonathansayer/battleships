@@ -1,6 +1,18 @@
 require 'board'
 
 describe Board do
+
+  before(:each) do
+    ship = double :ship
+    allow(ship).to receive(:x) {9}
+    allow(ship).to receive(:y) {3}
+    allow(ship).to receive(:x2) {11}
+    allow(ship).to receive(:y2) {3}
+    allow(ship).to receive(:x=) {9} 
+    allow(ship).to receive(:y=) {3}
+    allow(ship).to receive(:x2=) {11} 
+    allow(ship).to receive(:y2=) {3}
+  end
   
   it { is_expected.to respond_to :place_ship }
 
@@ -13,8 +25,7 @@ describe Board do
     expect(subject.height).to eq 10
   end
    
-  it 'only holds 5 ships' do
-    ship = double :ship
+  xit 'only holds 5 ships' do
     5.times do |size|
       ship = double :ship, { size: size }
       allow(ship).to receive(:x=) {1}
@@ -24,11 +35,8 @@ describe Board do
     expect{subject.place_ship ship, 1, 1, 'vertical'}.to raise_error 'No more space'
   end
 
-  it 'can only hold one ship of each size' do 
-    ship = double :ship, size: 4
-    ship2 = double :ship, size: 4
-    allow(ship).to receive(:x=) {3} 
-    allow(ship).to receive(:y=) {4}
+  it 'can only hold one ship of each size' do  
+    ship2 = double :ship 
     allow(ship2).to receive(:x=) {1} 
     allow(ship2).to receive(:y=) {2}
     subject.place_ship ship, 3, 4, 'horizontal'
@@ -37,10 +45,7 @@ describe Board do
 
   it 'Allows a ship to be hit' do 
     ship = double :ship
-    allow(ship).to receive(:x=) {1} 
-    allow(ship).to receive(:y=) {1}
-    allow(ship).to receive(:x) {1}
-    allow(ship).to receive(:y) {1}
+  
     subject.place_ship ship, 1, 1, 'horizontal'
     expect(subject.receive_hit 1, 1).to eq 'hit!' 
   end
