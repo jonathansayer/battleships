@@ -4,19 +4,6 @@ describe Board do
   
   it { is_expected.to respond_to :place_ship }
 
-  it 'places the ship on the board' do
-    ship = double :ship
-    allow(ship).to receive(:coordinates)
-    expect(ship).to receive(:place)
-    
-    subject.place_ship ship ,1 ,1 ,'vertical'
-  end
-
-  xit 'returns the location of the ship' do 
-    ship = double :ship, size: 2
-    allow(ship).to receive(:place) { true }
-    expect(subject.place_ship ship).to eq "(1,1) to (2,1)"
-  end 
 
   it 'has a grid width of 10' do
   	expect(subject.width).to eq 10
@@ -26,22 +13,42 @@ describe Board do
     expect(subject.height).to eq 10
   end
    
-  xit 'only holds 5 ships' do
+  it 'only holds 5 ships' do
     ship = double :ship
-    allow(ship).to receive(:coordinates) {true} 
-    allow(ship).to receive(:place) {true} 
-    allow(ship).to receive(:limit) { true }
-    5.times {subject.place_ship ship, 1, 1, 'vertical'}
+    5.times do |size|
+      ship = double :ship, { size: size }
+      allow(ship).to receive(:x=) {1}
+      allow(ship).to receive(:y=) {1}
+      subject.place_ship ship, 1, 1, 'vertical'
+    end
     expect{subject.place_ship ship, 1, 1, 'vertical'}.to raise_error 'No more space'
   end
 
   it 'can only hold one ship of each size' do 
-  ship = double :ship, size: 4
-  allow(ship).to receive(:coordinates) { true }
-  allow(ship).to receive(:place) { true }
-  subject.place_ship ship, 3, 4, 'horizontal'
-  expect{subject.place_ship ship, 1, 2, 'vertical'}.to raise_error "There is already a ship of that size"
+    ship = double :ship, size: 4
+    ship2 = double :ship, size: 4
+    allow(ship).to receive(:x=) {3} 
+    allow(ship).to receive(:y=) {4}
+    allow(ship2).to receive(:x=) {1} 
+    allow(ship2).to receive(:y=) {2}
+    subject.place_ship ship, 3, 4, 'horizontal'
+    expect{subject.place_ship ship2, 1, 2, 'vertical'}.to raise_error "There is already a ship of that size"
   end
+
+  it 'Allows a ship to be hit' do 
+    ship = double :ship
+    allow(ship).to receive(:x=) {1} 
+    allow(ship).to receive(:y=) {1}
+    allow(ship).to receive(:x) {1}
+    allow(ship).to receive(:y) {1}
+    subject.place_ship ship, 1, 1, 'horizontal'
+    expect(subject.receive_hit 1, 1).to eq "hit!"
+  end
+
+  it 'Can return miss' do 
+    expect(subject.receive_hit 1, 1).to eq 'miss!'
+  end
+
 
 
 end

@@ -1,17 +1,7 @@
 require 'ship'
 
 describe Ship do
-  
-  it 'Respond to be placed?' do 
-    subject=Ship.new 2
-    expect(subject).to_not be_placed
-  end 
 
-  it 'places a ship' do 
-    subject=Ship.new 2
-    expect(subject.place).to eq true
-  end
-  
   it 'outputs the chosen coordinates' do
     subject=Ship.new 2
     subject.coordinates 1, 1, 'horizontal'
@@ -31,8 +21,9 @@ describe Ship do
     expect{Ship.new 1}.to raise_error 'Wrong size ship'
   end
 
-  it 'Allows ship to be hit' do 
+  it 'Knows its been hit' do 
     subject=Ship.new 3
+    subject.coordinates 2, 3
     expect(subject.hit 1, 2).to eq [1,2]
   end
 
