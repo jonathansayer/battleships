@@ -26,12 +26,22 @@ describe Board do
     expect(subject.height).to eq 10
   end
    
-  it 'only holds 5 ships' do
+  xit 'only holds 5 ships' do
     ship = double :ship
     allow(ship).to receive(:coordinates) {true} 
     allow(ship).to receive(:place) {true} 
+    allow(ship).to receive(:limit) { true }
     5.times {subject.place_ship ship, 1, 1, 'vertical'}
     expect{subject.place_ship ship, 1, 1, 'vertical'}.to raise_error 'No more space'
   end
+
+  it 'can only hold one ship of each size' do 
+  ship = double :ship, size: 4
+  allow(ship).to receive(:coordinates) { true }
+  allow(ship).to receive(:place) { true }
+  subject.place_ship ship, 3, 4, 'horizontal'
+  expect{subject.place_ship ship, 1, 2, 'vertical'}.to raise_error "There is already a ship of that size"
+  end
+
 
 end

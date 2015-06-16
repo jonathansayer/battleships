@@ -18,7 +18,15 @@ class Board
   	fail 'No more space' if @ships.count >= 5
   	ship.coordinates x, y, orientation
     ship.place
+    limit ship
     @ships << ship
   end
+
+  def limit ship 
+    @ships.each do |boat|
+      fail 'There is already a ship of that size' if boat.size == ship.size
+    end
+
+  end 
 
 end

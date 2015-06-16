@@ -31,5 +31,10 @@ describe Ship do
     expect{Ship.new 1}.to raise_error 'Wrong size ship'
   end
 
+  it 'Allows ship to be hit' do 
+    subject=Ship.new 3
+    expect(subject.hit 1, 2).to eq [1,2]
+  end
+
 
 end

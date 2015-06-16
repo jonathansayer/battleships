@@ -33,4 +33,9 @@ class Ship
     @on_board = true
   end
 
+  def hit hit_x, hit_y
+    hit_array = [hit_x,hit_y] 
+  end
+
+
 end
