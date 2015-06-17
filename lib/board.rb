@@ -33,6 +33,7 @@ class Board
     ships << ship
   end
 
+#need to remove elsif statements. 
   def outside_board? ship
     if ship.x > @width
       true
@@ -55,8 +56,8 @@ class Board
 
   def receive_hit x, y
     hit = false
-    ships.each do |ship|
-      hit = true if ship.x == x and ship.y == y
+    ships.each do |boat|
+      hit = true if boat.x == x and boat.y == y
     end
     if hit
       store_hit x, y

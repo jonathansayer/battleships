@@ -1,7 +1,8 @@
 require 'board'
 
 describe Board do
-
+#need to refactorise!
+=begin
   before(:each) do
     ship = double :ship
     allow(ship).to receive(:x) {9}
@@ -13,7 +14,7 @@ describe Board do
     allow(ship).to receive(:x2=) {11} 
     allow(ship).to receive(:y2=) {3}
   end
-  
+=end
   it { is_expected.to respond_to :place_ship }
 
 
@@ -36,18 +37,40 @@ describe Board do
   end
 
   it 'can only hold one ship of each size' do  
-    ship2 = double :ship 
+    ship = double :ship, size: 2
+    ship2 = double :ship2, size: 2
+    allow(ship).to receive(:x=) {1} 
+    allow(ship).to receive(:y=) {2}
+    allow(ship).to receive(:x) {1}
+    allow(ship).to receive(:y) {2}
+    allow(ship).to receive(:x2) {2}
+    allow(ship).to receive(:y2) {2}
+    allow(ship).to receive(:x2=) {2}
+    allow(ship).to receive(:y2=) {2}
     allow(ship2).to receive(:x=) {1} 
     allow(ship2).to receive(:y=) {2}
-    subject.place_ship ship, 3, 4, 'horizontal'
+    allow(ship2).to receive(:x) {1}
+    allow(ship2).to receive(:y) {2}
+    allow(ship2).to receive(:x2) {1}
+    allow(ship2).to receive(:y2) {3}
+    allow(ship2).to receive(:x2=) {1}
+    allow(ship2).to receive(:y2=) {3}
+    subject.place_ship ship, 2, 3, 'horizontal'
     expect{subject.place_ship ship2, 1, 2, 'vertical'}.to raise_error "There is already a ship of that size"
   end
 
   it 'Allows a ship to be hit' do 
-    ship = double :ship
-  
-    subject.place_ship ship, 1, 1, 'horizontal'
-    expect(subject.receive_hit 1, 1).to eq 'hit!' 
+    ship = double :ship, size: 2
+    allow(ship).to receive(:x=) {1} 
+    allow(ship).to receive(:y=) {2}
+    allow(ship).to receive(:x) {1}
+    allow(ship).to receive(:y) {2}
+    allow(ship).to receive(:x2) {2}
+    allow(ship).to receive(:y2) {2}
+    allow(ship).to receive(:x2=) {2}
+    allow(ship).to receive(:y2=) {2}
+    subject.place_ship ship, 1, 2, 'horizontal'
+    expect(subject.receive_hit 1, 2).to eq 'hit!' 
   end
 
   it 'Can return miss' do 
@@ -60,17 +83,25 @@ describe Board do
     allow(ship).to receive(:y=) {1}
     allow(ship).to receive(:x) {1}
     allow(ship).to receive(:y) {1}
+    allow(ship).to receive(:x2) {1}
+    allow(ship).to receive(:y2) {1}
+    allow(ship).to receive(:x2=) {1}
+    allow(ship).to receive(:y2=) {1}
     subject.place_ship ship, 1, 1, 'horizontal'
     subject.receive_hit 1, 1
     expect(subject.win?).to eq true
   end
 
   it 'doesnt allow two hits (same for misses)' do
-    ship = double :ship
+    ship = double :ship, size: 1
     allow(ship).to receive(:x=) {1} 
     allow(ship).to receive(:y=) {1}
     allow(ship).to receive(:x) {1}
     allow(ship).to receive(:y) {1}
+    allow(ship).to receive(:x2) {1}
+    allow(ship).to receive(:y2) {1}
+    allow(ship).to receive(:x2=) {1}
+    allow(ship).to receive(:y2=) {1}
     subject.place_ship ship, 1, 1, 'horizontal'
     subject.receive_hit 1, 1
     expect{ subject.receive_hit 1, 1 }.to raise_error 'Already guessed'
