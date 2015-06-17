@@ -2,7 +2,7 @@ require 'board'
 
 describe Board do
 #need to refactorise!
-=begin
+
   before(:each) do
     ship = double :ship
     allow(ship).to receive(:x) {9}
@@ -14,7 +14,8 @@ describe Board do
     allow(ship).to receive(:x2=) {11} 
     allow(ship).to receive(:y2=) {3}
   end
-=end
+
+
   it { is_expected.to respond_to :place_ship }
 
 
@@ -31,6 +32,12 @@ describe Board do
       ship = double :ship, { size: size }
       allow(ship).to receive(:x=) {1}
       allow(ship).to receive(:y=) {1}
+      allow(ship).to receive(:x) {1}
+      allow(ship).to receive(:y) {2}
+      allow(ship).to receive(:x2) {2}
+      allow(ship).to receive(:y2) {2}
+      allow(ship).to receive(:x2=) {2}
+      allow(ship).to receive(:y2=) {2}
       subject.place_ship ship, 1, 1, 'vertical'
     end
     expect{subject.place_ship ship, 1, 1, 'vertical'}.to raise_error 'No more space'
@@ -39,8 +46,8 @@ describe Board do
   it 'can only hold one ship of each size' do  
     ship = double :ship, size: 2
     ship2 = double :ship2, size: 2
-    allow(ship).to receive(:x=) {1} 
-    allow(ship).to receive(:y=) {2}
+    allow(ship).to receive(:x=) {1}
+    allow(ship).to receive(:y=) {2} 
     allow(ship).to receive(:x) {1}
     allow(ship).to receive(:y) {2}
     allow(ship).to receive(:x2) {2}
